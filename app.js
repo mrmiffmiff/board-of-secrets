@@ -1,7 +1,7 @@
 import path from "node:path";
 import express from "express";
 const __dirname = import.meta.dirname;
-import indexRouter from "./routes/indexRouter.js";
+import userRouter from "./routes/userRouter.js";
 
 const app = express();
 app.disable("x-powered-by"); // No reason to disclose
@@ -15,7 +15,8 @@ app.use(express.static(assetsPath));
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", indexRouter);
+app.get("/", (req, res) => res.redirect("/register"))
+app.use("/", userRouter);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

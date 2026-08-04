@@ -34,6 +34,19 @@ async function getUser(id) {
 
 /**
  * 
+ * @param {string} username - User's username
+ * @returns Promise<User> - User in question
+ */
+async function getUserByUsername(username) {
+    /**
+     * @type {import('pg').QueryResult<User>}
+     */
+    const { rows } = await pool.query("SELECT * FROM users WHERE username = $1;", [username]);
+    return rows[0];
+}
+
+/**
+ * 
  * @param {string} first_name 
  * @param {string} last_name 
  * @param {string} username 
@@ -51,5 +64,6 @@ async function addUser(first_name, last_name, username, password_hash) {
 export default {
     getUsers,
     getUser,
+    getUserByUsername,
     addUser
 };

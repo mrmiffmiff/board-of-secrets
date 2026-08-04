@@ -4,7 +4,7 @@ import { Client } from "pg";
 import { argv } from "node:process";
 import { readFileSync } from "node:fs";
 
-const CREATE_SQL = readFileSync('./create.sql', 'utf8');
+const CREATE_SQL = readFileSync(import.meta.dirname + '/create.sql', 'utf8');
 
 const host = argv[2] || process.env.PGHOST;
 const database = argv[3] || process.env.PGDATABASE;
