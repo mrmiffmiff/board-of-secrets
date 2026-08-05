@@ -1,20 +1,31 @@
 <%- include("partials/head") %>
-    <section>
+    <main>
         <% if (locals.errors) {%>
             <%- include('partials/errors') %>
         <% } %>
         <form action="/register" method="post">
-            <label for="firstName">First Name:</label>
-            <input type="text" id="firstName" name="firstName" />
-            <label for="lastName">Last Name:</label>
-            <input type="text" id="lastName" name="lastName" />
-            <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" />
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" />
-            <label for="confirmPassword">Confirm Password:</label>
-            <input type="password" name="confirmPassword" id="confirmPassword" />
-            <button type="submit">Register</button>
+            <h1>Register User</h1>
+            <span class="input-span">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" placeholder=" " autocomplete="given-name" required />
+            </span>
+            <span class="input-span">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" placeholder=" " autocomplete="family-name" required />
+            </span>
+            <span class="input-span">
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" placeholder=" " autocomplete="email" required />
+            </span>
+            <span class="input-span">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" placeholder=" " autocomplete="new-password" required />
+            </span>
+            <span class="input-span">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder=" " autocomplete="new-password" required />
+            </span>
+            <button type="submit" class="submitButton">Register</button>
         </form>
-    </section>
+    </main>
 <%- include('partials/foot') %>

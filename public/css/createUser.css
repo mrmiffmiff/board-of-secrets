@@ -1,5 +1,27 @@
-section {
-    height: 100vh;
+:root {
+    --input-bg: #9c9c9c60;
+    --input-outline: #707070;
+    --input-outline-focus: #58bc82;
+    --button-text-contrast: #efefef;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #212121;
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+        background-color: #e8e8e8;
+    }
+}
+
+h1 {
+    color: var(--button-text-contrast);
+}
+
+main {
+    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,5 +31,63 @@ section {
 form {
     display: flex;
     flex-direction: column;
-    width: 500px;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 300px;
+    max-height: 50%;
+}
+
+.input-span {
+    position: relative;
+    width: 100%;
+}
+
+input {
+    border-radius: 0.5rem;
+    padding: 1rem 0.75rem;
+    width: 100%;
+    border: none;
+    background-color: var(--input-bg);
+    outline: 2px solid var(--input-outline);
+}
+
+input:focus {
+    outline: 2px solid var(--input-outline-focus);
+}
+
+label {
+    position: absolute;
+    left: 0.75rem;
+    top: 1rem;
+    color: var(--input-outline-focus);
+    font-weight: 600;
+    pointer-events: none;
+    transform-origin: left top;
+    transition: transform .18s ease, color .18s ease;
+}
+
+.input-span:has(input:focus) label,
+.input-span:has(input:not(:placeholder-shown)) label {
+    transform: translateX(-0.2rem) translateY(-1.11rem) scale(.73);
+}
+
+.submitButton {
+    padding: 1rem 0.75rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border-radius: 3rem;
+    background-color: var(--input-outline);
+    color: var(--button-text-contrast);
+    border: none;
+    cursor: pointer;
+    transition: all 300ms;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.submitButton:hover {
+    background-color: var(--input-outline-focus);
+    color: var(--input-outline);
 }
