@@ -40,7 +40,7 @@ const validateUser = [
  * @param {import('express').Response} res 
  */
 function getCreateUserPage(req, res) {
-    res.render("createUser", { title: "Create User", styles: ["createUser"] });
+    res.render("createUser", { title: "Create User", styles: ["forms"] });
 }
 
 const postUser = [
@@ -55,7 +55,7 @@ const postUser = [
         if (!errors.isEmpty()) {
             return res.status(400).render("createUser", {
                 title: "Create User",
-                styles: ["createUser"],
+                styles: ["forms"],
                 errors: errors.array(),
             });
         }
@@ -66,7 +66,17 @@ const postUser = [
     }
 ];
 
+/**
+ * 
+ * @param {import('express').Request} req 
+ * @param {import('express').Response} res 
+ */
+function getLoginPage(req, res) {
+    res.render("login", { title: "Login", styles: ["forms"] });
+}
+
 export default {
     getCreateUserPage,
     postUser,
+    getLoginPage,
 }

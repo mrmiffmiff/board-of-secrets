@@ -15,7 +15,7 @@ app.use(express.static(assetsPath));
 
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => res.redirect("/register"))
+app.get("/", (req, res) => res.redirect("/login"))
 app.use("/", userRouter);
 
 app.use((err, req, res, next) => {
