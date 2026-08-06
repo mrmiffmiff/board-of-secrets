@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS users (
     last_name VARCHAR (255) NOT NULL,
     username VARCHAR(255) NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    is_member BOOLEAN NOT NULL DEFAULT FALSE
+    is_member BOOLEAN NOT NULL DEFAULT FALSE,
+    is_admin BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS messages (
@@ -14,13 +15,13 @@ CREATE TABLE IF NOT EXISTS messages (
     post TEXT
 );
 
-CREATE TABLE "session" (
+CREATE TABLE user_sessions (
   "sid" varchar NOT NULL COLLATE "default",
   "sess" json NOT NULL,
   "expire" timestamp(6) NOT NULL
 )
 WITH (OIDS=FALSE);
 
-ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+ALTER TABLE user_sessions ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
 
-CREATE INDEX "IDX_session_expire" ON "session" ("expire");
+CREATE INDEX "IDX_session_expire" ON user_sessions ("expire");

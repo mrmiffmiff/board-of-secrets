@@ -1,10 +1,5 @@
 <%- include('partials/head') %>
-    <h1>Index file, do whatever you need</h1>
-    <ul>
-        <% for (const user of locals.users) {%>
-            <li>
-                <%= user  %>
-            </li>
-        <% } %>
-    </ul>
+    <main>
+        <h1>Welcome <% if(locals.currentUser) { %><%= locals.currentUser.firstName %><% } else { %>Guest<% } %></h1>
+    </main>
 <%- include('partials/foot') %>

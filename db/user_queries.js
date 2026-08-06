@@ -3,12 +3,31 @@ import pool from "./pool.js";
 /**
  * @typedef {Object} User
  * @property {number} id
- * @property {string} first_name
- * @property {string} last_name
+ * @property {string} firstName
+ * @property {string} lastName
  * @property {string} username
- * @property {string} password_hash
- * @property {boolean} is_member
+ * @property {string} passwordHash
+ * @property {boolean} isMember
+ * @property {boolean} isAdmin
  */
+
+/**
+ * Maps a raw snake_case `users` row into a camelCase User object.
+ * @param {Object} [row]
+ * @returns {User|undefined}
+ */
+function toUser(row) {
+    if (!row) return undefined;
+    const { first_name, last_name, password_hash, is_member, is_admin, ...rest } = row;
+    return {
+        ...rest,
+        firstName: first_name,
+        lastName: last_name,
+        passwordHash: password_hash,
+        isMember: is_member,
+        isAdmin: is_admin,
+    };
+}
 
 // Not sure I'll ever need to retrieve all users, but I feel better having a full getter
 async function getUsers() {
@@ -16,11 +35,11 @@ async function getUsers() {
      * @type {import('pg').QueryResult<User>}
      */
     const { rows } = await pool.query("SELECT * FROM users;");
-    return rows;
+    return rows.map(toUser);
 }
 
 /**
- * 
+ *
  * @param {number} id - ID of User to retrieve
  * @returns Promise<User> - The user in question if present
  */
@@ -29,11 +48,11 @@ async function getUser(id) {
      * @type {import('pg').QueryResult<User>}
      */
     const { rows } = await pool.query("SELECT * FROM users WHERE id = $1;", [id]);
-    return rows[0];
+    return toUser(rows[0]);
 }
 
 /**
- * 
+ *
  * @param {string} username - User's username
  * @returns Promise<User> - User in question
  */
@@ -42,23 +61,23 @@ async function getUserByUsername(username) {
      * @type {import('pg').QueryResult<User>}
      */
     const { rows } = await pool.query("SELECT * FROM users WHERE username = $1;", [username]);
-    return rows[0];
+    return toUser(rows[0]);
 }
 
 /**
- * 
- * @param {string} first_name 
- * @param {string} last_name 
- * @param {string} username 
- * @param {string} password_hash 
+ *
+ * @param {string} firstName
+ * @param {string} lastName
+ * @param {string} username
+ * @param {string} passwordHash
  */
-async function addUser(first_name, last_name, username, password_hash) {
+async function addUser(firstName, lastName, username, passwordHash) {
     await pool.query(`
         INSERT INTO users
         (first_name, last_name, username, password_hash, is_member)
         VALUES
         ($1, $2, $3, $4, $5);
-        `, [first_name, last_name, username, password_hash, false])
+        `, [firstName, lastName, username, passwordHash, false])
 }
 
 export default {

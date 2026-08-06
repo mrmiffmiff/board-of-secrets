@@ -75,8 +75,18 @@ function getLoginPage(req, res) {
     res.render("login", { title: "Login", styles: ["forms"] });
 }
 
+function logout(req, res, next) {
+    req.logout((err) => {
+        if (err) {
+            return next(err);
+        }
+        res.redirect("/");
+    });
+}
+
 export default {
     getCreateUserPage,
     postUser,
     getLoginPage,
+    logout,
 }
