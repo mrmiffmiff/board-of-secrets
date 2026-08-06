@@ -1,27 +1,8 @@
 :root {
     --input-bg: #9c9c9c60;
-    --input-outline: #707070;
-    --input-outline-focus: #58bc82;
-    --button-text-contrast: #efefef;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: #212121;
-}
-
-@media (prefers-color-scheme: light) {
-    body {
-        background-color: #e8e8e8;
-    }
-}
-
-h1 {
-    color: var(--button-text-contrast);
 }
 
 main {
-    height: 50vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,18 +30,18 @@ input {
     width: 100%;
     border: none;
     background-color: var(--input-bg);
-    outline: 2px solid var(--input-outline);
+    outline: 2px solid var(--color-neutral);
 }
 
 input:focus {
-    outline: 2px solid var(--input-outline-focus);
+    outline: 2px solid var(--color-accent);
 }
 
 label {
     position: absolute;
     left: 0.75rem;
     top: 1rem;
-    color: var(--input-outline-focus);
+    color: var(--color-accent);
     font-weight: 600;
     pointer-events: none;
     transform-origin: left top;
@@ -78,8 +59,8 @@ label {
     display: flex;
     justify-content: center;
     border-radius: 3rem;
-    background-color: var(--input-outline);
-    color: var(--button-text-contrast);
+    background-color: var(--color-neutral);
+    color: var(--color-text-contrast);
     border: none;
     cursor: pointer;
     transition: all 300ms;
@@ -88,6 +69,6 @@ label {
 }
 
 .submitButton:hover {
-    background-color: var(--input-outline-focus);
-    color: var(--input-outline);
+    background-color: var(--color-accent);
+    color: var(--color-neutral);
 }
