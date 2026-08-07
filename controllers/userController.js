@@ -72,7 +72,13 @@ const postUser = [
  * @param {import('express').Response} res 
  */
 function getLoginPage(req, res) {
-    res.render("login", { title: "Login", styles: ["forms"] });
+    const messages = req.session.messages || [];
+    delete req.session.messages;
+    res.render("login", {
+        title: "Login",
+        styles: ["forms"],
+        errors: messages.length ? messages.map((msg) => ({ msg })) : undefined,
+    });
 }
 
 function logout(req, res, next) {
