@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS messages (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR(255) NOT NULL,
     time_stamp TIMESTAMPTZ NOT NULL,
-    post TEXT
+    post TEXT,
+    user_id INTEGER NOT NULL REFERENCES users(id)
 );
 
 CREATE TABLE user_sessions (

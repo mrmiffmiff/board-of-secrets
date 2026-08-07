@@ -80,9 +80,25 @@ async function addUser(firstName, lastName, username, passwordHash) {
         `, [firstName, lastName, username, passwordHash, false])
 }
 
+/**
+ * 
+ * @param {number} id
+ * @param {Object} [flags]
+ * @param {boolean} [flags.isMember]
+ * @param {boolean} [flags.isAdmin]
+ */
+async function upgradeUser(id, { isMember = false, isAdmin = false } = {}) {
+    await pool.query(`
+        UPDATE users
+        SET is_member = is_member OR $2, is_admin = is_admin OR $3
+        WHERE id = $1;
+        `, [id, isMember, isAdmin]);
+}
+
 export default {
     getUsers,
     getUser,
     getUserByUsername,
-    addUser
+    addUser,
+    upgradeUser,
 };

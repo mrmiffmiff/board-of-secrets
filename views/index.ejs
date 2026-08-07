@@ -1,5 +1,16 @@
 <%- include('partials/head') %>
     <main>
         <h1>Welcome <% if(locals.currentUser) { %><%= locals.currentUser.firstName %><% } else { %>Guest<% } %></h1>
+        <% (locals.messages || []).forEach(message => { %>
+            <article>
+                <h2><%= message.title %></h2>
+                <p><%= message.post %></p>
+                <time datetime="<%= message.timeStamp.toISOString() %>"></time>
+                <% if (locals.isMember) { %>
+                    <p>Posted by <%= message.authorFirstName %> <%= message.authorLastName %></p>
+                <% } %>
+            </article>
+        <% }) %>
     </main>
+    <script src="/js/formatTimestamps.js"></script>
 <%- include('partials/foot') %>

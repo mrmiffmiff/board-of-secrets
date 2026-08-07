@@ -30,7 +30,8 @@ form {
     width: 100%;
 }
 
-input {
+input,
+textarea {
     border-radius: 0.5rem;
     padding: 1rem 0.75rem;
     width: 100%;
@@ -38,10 +39,17 @@ input {
     background-color: var(--input-bg);
     outline: 2px solid var(--color-neutral);
     color: #F2F2F2;
+    font-family: inherit;
 }
 
-input:focus {
+input:focus,
+textarea:focus {
     outline: 2px solid var(--color-accent);
+}
+
+textarea {
+    min-height: 8rem;
+    resize: vertical;
 }
 
 label {
@@ -55,8 +63,8 @@ label {
     transition: transform .18s ease, color .18s ease;
 }
 
-.input-span:has(input:focus) label,
-.input-span:has(input:not(:placeholder-shown)) label {
+.input-span:has(input:focus, textarea:focus) label,
+.input-span:has(input:not(:placeholder-shown), textarea:not(:placeholder-shown)) label {
     transform: translateX(-0.2rem) translateY(-1.11rem) scale(.73);
 }
 

@@ -2,6 +2,7 @@ import path from "node:path";
 import express from "express";
 const __dirname = import.meta.dirname;
 import userRouter from "./routes/userRouter.js";
+import messageRouter from "./routes/messageRouter.js";
 import session from "express-session";
 import passport from "passport";
 import connectPgSimple from "connect-pg-simple";
@@ -47,7 +48,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", userRouter);
-app.get("/", (req, res) => res.render("index"));
+app.use("/", messageRouter);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

@@ -84,9 +84,56 @@ function logout(req, res, next) {
     });
 }
 
+/**
+ *
+ * @param {import('express').Request} req
+ * @param {import('express').Response} res
+ */
+function getSecretPage(req, res) {
+    res.render("secret", { title: "Enter Secret Password", styles: ["forms"] });
+}
+
+const validateSecret = [
+    body("secret").trim().notEmpty().withMessage("A password is required."),
+];
+
+const postSecret = [
+    validateSecret,
+    /**
+    *
+    * @param {import('express').Request} req
+    * @param {import('express').Response} res
+    */
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).render("secret", {
+                title: "Enter Secret Password",
+                styles: ["forms"],
+                errors: errors.array(),
+            });
+        }
+        const { secret } = matchedData(req);
+        if (secret === process.env.ADMINSECRET) {
+            await db.upgradeUser(req.user.id, { isMember: true, isAdmin: true });
+        } else if (secret === process.env.MEMBERSECRET) {
+            await db.upgradeUser(req.user.id, { isMember: true });
+        } else {
+            return res.status(400).render("secret", {
+                title: "Enter Secret Password",
+                styles: ["forms"],
+                errors: [{ msg: "Incorrect password." }],
+            });
+        }
+        res.redirect("/");
+    }
+];
+
 export default {
     getCreateUserPage,
     postUser,
     getLoginPage,
     logout,
+    getSecretPage,
+    postSecret,
 }
